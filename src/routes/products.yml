@@ -1,0 +1,28 @@
+paths:
+  /products:
+    post:
+      summary: Salva um novo produto
+      tags: [products]
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: "#components/schemas/Product"
+      responses:
+        201:
+          description: Produto cadastrado com sucesso
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  task:
+                    $ref: "#components/schemas/ProductCreatedResponse"
+        400:
+          description: O objeto Produto recebido é inválido
+          content:
+            application/json:
+              schema:
+                type: object
+                $ref: "#components/schemas/ProductCreationFailResponse"
