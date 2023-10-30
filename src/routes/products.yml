@@ -11,7 +11,7 @@ paths:
               $ref: "#components/schemas/Product"
       responses:
         201:
-          description: Product registered with sucess
+          description: Product registered with success
           content:
             application/json:
               schema:

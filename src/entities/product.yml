@@ -7,9 +7,6 @@ components:
         - price
         - quantity
       properties:
-        id:
-          type: number
-          description: ID from product
         description:
           type: string
           description: Description from product
@@ -20,7 +17,6 @@ components:
           type: number
           description: Quantity from product
       example:
-        id: 1
         description: Sweet Candy 7Bello
         price: 0.50
         quantity: 100
