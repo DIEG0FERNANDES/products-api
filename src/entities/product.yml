@@ -1,79 +1,54 @@
-paths:
-  /products:
-    post:
-      summary: Cria um novo produto
-      tags:
-        - Products
-      requestBody:
-        required: true
-        content:
-          application/json:
-            schema:
-              $ref: "#/components/schemas/Product"
-      responses:
-        "201":
-          description: Produto cadastrado com sucesso
-          content:
-            application/json:
-              schema:
-                type: object
-                properties:
-                  message:
-                    type: string
-                example:
-                  message: Product registered
-        "400":
-          description: O objeto Produto recebido é inválido
-          content:
-            application/json:
-              schema:
-                type: object
-                properties:
-                  message:
-                    type: string
-                example:
-                  message: Invalid inputs
-
-  /products/{id}:
-    get:
-      summary: Obtém um produto pelo ID
-      tags:
-        - Products
-      parameters:
-        - in: path
-          name: id
-          required: true
-          schema:
-            type: integer
-          description: ID do produto
-      responses:
-        "200":
-          description: Produto encontrado com sucesso
-          content:
-            application/json:
-              schema:
-                $ref: "#/components/schemas/Product"
-        "404":
-          description: Produto não encontrado
-
-  /products/description/{description}:
-    get:
-      summary: Obtém produtos por descrição
-      tags:
-        - Products
-      parameters:
-        - in: path
-          name: description
-          required: true
-          schema:
+components:
+  schemas:
+    Product:
+      type: object
+      required:
+        - description
+        - price
+        - quantity
+      properties:
+        id:
+          type: number
+          description: ID from product
+        description:
+          type: string
+          description: Description from product
+        price:
+          type: number
+          description: Price from product
+        quantity:
+          type: number
+          description: Quantity from product
+      example:
+        id: 1
+        description: Sweet Candy 7Bello
+        price: 0.50
+        quantity: 100
+    ProductCreatedResponse:
+      allOf:
+        - $ref: "#components/schemas/Product"
+        - type: object
+          required:
+            - id
+          properties:
+            id:
+              type: number
+              description: The Indentificador from the Product saved in Data Base
+          example:
+            id: 1
+            description: Sweet Candy 7Belo
+            price: 0.50
+            quantity: 100
+    ProductCreationFailResponse:
+      type: object
+      properties:
+        errorMessages:
+          type: array
+          items:
             type: string
-          description: Descrição do produto
-      responses:
-        "200":
-          description: Produtos encontrados com sucesso
-          content:
-            application/json:
-              schema:
-                type: array
-                items:
-                  $ref: "#/components/schemas/Product"
+          example:
+            [
+              "Description cannot be empty",
+              "Price cannot be empty",
+              "Quantity cannot be empty"
+            ]

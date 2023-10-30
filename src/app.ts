@@ -14,8 +14,8 @@ app.use(cors());
 app.use(express.json())
 app.use(logger('dev'))
 
-app.use('/products', productsRouter)
+app.use('/', productsRouter)
 
 const specs = swaggerJSDoc(swaggerOptions)
 app.use('/docs', swaggerUI.serve, swaggerUI.setup(specs))
-app.get('/', (_req: any, res: { send: (arg0: string) => any }) => res.send('Products API'))
+app.get('/', (req, res) => res.send('Products API'))

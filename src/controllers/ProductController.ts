@@ -9,18 +9,22 @@ export class ProductController {
     this._repo = AppDataSource.getRepository(Product);
   }
 
-  async createProduct(product: Product): Promise<Product> {
+  async createProduct(product: Product) {
     const savedProduct = await this._repo.save(product);
     return savedProduct;
   }
 
-  async getProductById(id: number): Promise<Product | undefined> {
-    const product = await this._repo.findOne(id);
+  async getProductById(id: number) {
+    const product = await this._repo.findOne({
+      where: { id }
+    });
     return product;
   }
 
-  async getProductsByDescription(description: string): Promise<Product[]> {
-    const products = await this._repo.find({ where: { description } });
+  async getProductsByDescription(description: string) {
+    const products = await this._repo.find({
+      where: { description }
+    });
     return products;
   }
 }

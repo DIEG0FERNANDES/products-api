@@ -1,7 +1,7 @@
 paths:
   /products:
     post:
-      summary: Salva um novo produto
+      summary: Save new product
       tags: [products]
       requestBody:
         required: true
@@ -11,18 +11,58 @@ paths:
               $ref: "#components/schemas/Product"
       responses:
         201:
-          description: Produto cadastrado com sucesso
+          description: Product registered with sucess
           content:
             application/json:
               schema:
                 type: object
                 properties:
-                  task:
+                  product:
                     $ref: "#components/schemas/ProductCreatedResponse"
         400:
-          description: O objeto Produto recebido é inválido
+          description: Invalid Inputs
           content:
             application/json:
               schema:
                 type: object
                 $ref: "#components/schemas/ProductCreationFailResponse"
+  /products/{id}:
+    get:
+      summary: Get a product by ID
+      tags: [products]
+      parameters:
+        - in: path
+          name: id
+          required: true
+          schema:
+            type: integer
+          description: ID of the product
+      responses:
+        200:
+          description: Product found successfully
+          content:
+            application/json:
+              schema:
+                $ref: '#components/schemas/Product'
+        404:
+          description: Product not found
+  /products/description/{description}:
+    get:
+      summary: Get products by description
+      tags: [products]
+      parameters:
+        - in: path
+          name: description
+          required: true
+          schema:
+            type: string
+          description: Description of the product
+      responses:
+        200:
+          description: Products found successfully
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#components/schemas/Product'
